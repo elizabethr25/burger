@@ -10,3 +10,6 @@ CREATE TABLE burgers
     devoured BOOLEAN NOT NULL,
     PRIMARY KEY (id)
 )
+
+
+//mysql -u root -p :: password is (enter)
