@@ -11,7 +11,7 @@ router.get("/index", function(req, res) {
       var hbsObject = {
         burgers: data
       };
-      console.log(hbsObject);
+      console.log("HBS:", hbsObject);
       res.render("index", hbsObject);
     });
 });
@@ -20,14 +20,14 @@ router.post("/index", function(req, res) {
   burger.insertOne([
     "burger_name", "devoured"
   ], [
-    req.body.burger_name, req.body.devoured
+    req.body.burger_name, Boolean(req.body.devoured)
   ], function(result) {
     // Send back the ID of the new quote
     res.json({ id: result.insertId });
   });
 });
 
-router.put('/index', function(req, res){
+router.put("/index", function(req, res){
 	var condition = 'id = ' + req.params.id;
 
 	console.log('condition ', condition);

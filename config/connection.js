@@ -2,11 +2,10 @@
 var mysql = require("mysql");
 
 var connection = mysql.createConnection({
-  port: 8080,
   host: "localhost",
   user: "root",
   password: "",
-  database: "burger_db"
+  database: "burgers_db"
 });
 
 //Make connection, throw error if connection fails 

@@ -20,14 +20,14 @@ function objToSql(ob) {
   for (var key in ob) {
     var value = ob[key];
     // check to skip hidden properties
-    if (Object.hasOwnProperty.call(ob, key)) {
-      // if string with spaces, add quotations
-      if (typeof value === "string" && value.indexOf(" ") >= 0) {
-        value = "'" + value + "'";
-      }
+    // if (Object.hasOwnProperty.call(ob, key)) {
+    //   // if string with spaces, add quotations
+    //   if (typeof value === "string" && value.indexOf(" ") >= 0) {
+    //     value = "'" + value + "'";
+    //   }
       arr.push(key + "=" + value);
     }
-  }
+  
 
   // translate array of strings to a single comma-separated string
   return arr.toString();
@@ -39,14 +39,16 @@ var orm = {
   selectAll: function(tableInput, cb) {
     var queryString = "SELECT * FROM " + tableInput + ";";
     connection.query(queryString, function(err, res) {
-      if (err) throw err;
-      cb(result);
+      if (err) { 
+        throw err;
+      };
+      cb(res);
     });
   },
 
   //Creating(inserting) a burger
-  insertOne: function(table, cols, values, cb) {
-    var queryString = "INSERT INTO" + table;
+  insertOne: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
 
     queryString += " (";
     queryString += cols.toString();

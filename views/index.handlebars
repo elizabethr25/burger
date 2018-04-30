@@ -6,12 +6,17 @@
 
 <div id="ready-burgers">
     <h3>Ready to eat burgers!</h3>
-    {{!-- Handlebars syntax for current list of burgers here --}}
-    {{!-- Add a button to 'devour' the burger, is this different from a submit function?  --}}
+    {{!-- Handlebars syntax for current list of burgers here --}} {{!-- Add a button to 'devour' the burger, is this different
+    from a submit function? --}}
     <ol>
-        {{#each burgers}}
+        {{#each burgers}} 
             {{#unless this.devoured}}
-            {{/unless}}
+                <p>{{this.burger_name}}</p>
+                <button class="btn btn-delete" data-id="{{this.id}}">Eat this Burger</button>
+                {{!-- <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+                    <button type="submit" class="burgerAvailable">{{this.burger_name}}</button>
+                </form> --}}
+            {{/unless}} 
         {{/each}}
     </ol>
 </div>
@@ -20,18 +25,49 @@
     <h3>Burgers that you have eaten.</h3>
     {{!-- List of burgers that have already been devoured --}}
     <ol>
-        {{#each burgers}}
+        {{#each burgers}} 
             {{#if this.devoured}}
-            {{/if}}
+                <p>{{this.burger_name}}</p>
+            {{/if}} 
         {{/each}}
     </ol>
 </div>
 
 
-<form action="/index" method="POST">
-	<textarea type="text" name="burger_name" placeholder="Your Burger Here"></textarea>
+<form id="add-burger">
+    <input type="text" name="burger_name" placeholder="Your Burger Here"></input>
 
-	<button type="submit" id="burgerbutton">Cook the Burger</button>
+    <button type="submit" id="burgerbutton">Cook the Burger</button>
 </form>
 
 <p>Enter a burger that you want to eat and click submit.</p>
+
+<script>
+    $(document).ready(function () {
+        $('#add-burger').on("submit", function (e) {
+            e.preventDefault();
+            var burgerName = $(this).find("input[name='burger_name']")[0].value;
+            var data = {
+                burger_name: burgerName,
+                devoured: false
+            };
+
+            $.post('/index', data)
+                .done(function (res) {
+                    console.log(res);
+                });
+        });
+
+        {{!-- $('.btn-delete').click(function(e){
+            var data = $(this).data();
+            $.ajax({
+                url: "/index",
+                type: "DELETE",
+                success: function(result){
+                    console.log("deleted burger!")
+                }
+
+            })
+        }) --}}
+    });
+</script>
