@@ -1,24 +1,37 @@
-<h1>Eat your burger!</h1>
-
 <div id="burger-image">
     <img src="#">
 </div>
+
+<h1>Eat your burger!</h1>
 
 <div id="ready-burgers">
     <h3>Ready to eat burgers!</h3>
     {{!-- Handlebars syntax for current list of burgers here --}}
     {{!-- Add a button to 'devour' the burger, is this different from a submit function?  --}}
+    <ol>
+        {{#each burgers}}
+            {{#unless this.devoured}}
+            {{/unless}}
+        {{/each}}
+    </ol>
 </div>
 
 <div id="eaten-burgers">
     <h3>Burgers that you have eaten.</h3>
     {{!-- List of burgers that have already been devoured --}}
+    <ol>
+        {{#each burgers}}
+            {{#if this.devoured}}
+            {{/if}}
+        {{/each}}
+    </ol>
 </div>
 
 
-<form>
-    <textarea></textarea>
-    <button type="submit">Cook the burger!</button>
+<form action="/index" method="POST">
+	<textarea type="text" name="burger_name" placeholder="Your Burger Here"></textarea>
+
+	<button type="submit" id="burgerbutton">Cook the Burger</button>
 </form>
 
 <p>Enter a burger that you want to eat and click submit.</p>
