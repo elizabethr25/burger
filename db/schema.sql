@@ -12,4 +12,3 @@ CREATE TABLE burgers
 )
 
 
-//mysql -u root -p :: password is (enter)

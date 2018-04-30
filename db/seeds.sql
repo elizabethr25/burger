@@ -5,4 +5,3 @@ INSERT INTO burgers ("Hawaiian", true)
 
 
 
-//mysql -u root -p :: password is (enter)
